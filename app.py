@@ -8,11 +8,9 @@ def create_app():
 
     todos = []
 
-
     @app.route('/')
     def index():
         return render_template('index.html', todos=todos)
-
 
     @app.route('/add', methods=['POST'])
     def add_todo():
@@ -20,7 +18,6 @@ def create_app():
         if todo:
             todos.append(todo)
         return redirect(url_for('index'))
-
 
     @app.route('/delete/<int:todo_id>', methods=['POST'])
     def delete_todo(todo_id):
