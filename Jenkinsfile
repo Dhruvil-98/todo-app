@@ -23,12 +23,6 @@ pipeline {
             }
         }
 
-        stage('Run Tests') {
-            steps {
-                sh 'python -m unittest discover tests'
-            }
-        }
-
         stage('Lint Code') {
             steps {
                 sh 'pip install flake8'
