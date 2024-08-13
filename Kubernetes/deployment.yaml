@@ -1,19 +1,19 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: todo-app
+  name: flask-app
 spec:
-  replicas: 2
+  replicas: 3
   selector:
     matchLabels:
-      app: todo-app
+      app: flask-app
   template:
     metadata:
       labels:
-        app: todo-app
+        app: flask-app
     spec:
       containers:
-      - name: todo-app
-        image: your-docker-username/todo-app:latest
-        ports:
-        - containerPort: 5000
+        - name: flask-app
+          image: my-flask-app:latest
+          ports:
+            - containerPort: 5000
