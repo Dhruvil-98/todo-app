@@ -44,36 +44,20 @@ jobs:
     - name: Checkout code
       uses: actions/checkout@v3
 
-    - name: Install dependencies
-      run: |
-        sudo apt-get update
-        sudo apt-get install -y curl apt-transport-https
-
-    - name: Install Docker
-      run: |
-        sudo apt-get install -y docker.io
-
-    - name: Install Minikube
-      run: |
-        curl -Lo minikube https://storage.googleapis.com/minikube/releases/latest/minikube-linux-amd64
-        chmod +x minikube
-        sudo mv minikube /usr/local/bin/
-
-    - name: Start Minikube
-      run: |
-        minikube start --driver=docker
-
     - name: Install kubectl
       run: |
         curl -LO "https://dl.k8s.io/release/v1.25.0/bin/linux/amd64/kubectl"
         chmod +x ./kubectl
         sudo mv ./kubectl /usr/local/bin/kubectl
 
-    - name: Set kubectl context
+    - name: Set up kubectl context
       run: |
-        kubectl cluster-info
+        kubectl config set-cluster my-cluster --server=https://your-k8s-api-server
+        kubectl config set-credentials my-credentials --token=${{ secrets.KUBECONFIG }}
+        kubectl config set-context my-context --cluster=my-cluster --user=my-credentials
+        kubectl config use-context my-context
 
-    - name: Apply Kubernetes manifests
+    - name: Deploy to Kubernetes
       run: |
         kubectl apply -f kubernetes/deployment.yaml
         kubectl apply -f kubernetes/service.yaml
