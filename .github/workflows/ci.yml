@@ -35,11 +35,11 @@ jobs:
 
       - name: Tag Docker image
         run: |
-          docker tag my-flask-app ghcr.io/${{ github.repository }}/my-flask-app:latest
+          docker tag my-flask-app ghcr.io/dhruvil-98/todo-app/my-flask-app:latest
 
       - name: Push Docker image
         run: |
-          docker push ghcr.io/${{ github.repository }}/my-flask-app:latest
+          docker push ghcr.io/dhruvil-98/todo-app/my-flask-app:latest
 
       - name: Set up kubectl
         uses: azure/setup-kubectl@v1
