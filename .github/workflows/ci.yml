@@ -51,7 +51,7 @@ jobs:
         curl -Lo minikube https://storage.googleapis.com/minikube/releases/latest/minikube-linux-amd64
         chmod +x minikube
         sudo mv minikube /usr/local/bin/
-        minikube start --driver=docker
+        sudo minikube start --driver=docker
 
     - name: Install kubectl
       run: |
@@ -59,16 +59,14 @@ jobs:
         chmod +x ./kubectl
         sudo mv ./kubectl /usr/local/bin/kubectl
 
-    - name: Set kubectl context
+    - name: Set kubectl context to Minikube
       run: |
-        kubectl cluster-info
+        sudo minikube kubectl -- get po -A
 
     - name: Deploy to Kubernetes
       env:
-        KUBECONFIG: ${{ secrets.KUBECONFIG }}
+        KUBECONFIG: /home/runner/.kube/config  # Ensures KUBECONFIG is correctly set
       run: |
         kubectl apply -f kubernetes/deployment.yaml
         kubectl apply -f kubernetes/service.yaml
-        kubectl apply -f Kubernetes/configmap.yaml
-
-
+        kubectl apply -f kubernetes/configmap.yaml
