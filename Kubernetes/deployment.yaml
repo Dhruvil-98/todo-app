@@ -1,19 +1,19 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: flask-app
+  name: my-flask-app
 spec:
-  replicas: 3
+  replicas: 2
   selector:
     matchLabels:
-      app: flask-app
+      app: my-flask-app
   template:
     metadata:
       labels:
-        app: flask-app
+        app: my-flask-app
     spec:
       containers:
-        - name: flask-app
-          image: my-flask-app:latest
-          ports:
-            - containerPort: 5000
+      - name: my-flask-app
+        image: ghcr.io/dhruvil-98/todo-app/my-flask-app:latest
+        ports:
+        - containerPort: 80
