@@ -7,6 +7,7 @@ def create_app():
     app = Flask(__name__)
 
     todos = []
+    
 
     @app.route('/')
     def index():
