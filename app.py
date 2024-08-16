@@ -4,10 +4,10 @@ from flask import Flask, render_template, request, redirect, url_for
 
 
 def create_app():
-    app = Flask(__name__)
+    app = Flask1(__name__)
 
     todos = []
-    
+
 
     @app.route('/')
     def index():
